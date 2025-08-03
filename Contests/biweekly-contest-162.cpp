@@ -45,7 +45,31 @@ int minRemovals(vector<int>& nums, int k) {
 }
 
 3.
-NOT SOLVED
+int ans = 1e9;
+
+// First we calc for land
+int minEnd = 1e9;
+for (int i = 0; i < landStartTime.size(); i++) {
+    minEnd = min(minEnd, landStartTime[i] + landDuration[i]);
+}
+// Ans = min of land + water
+for (int i = 0; i < waterStartTime.size(); i++) {
+    int x = waterDuration[i] + max(minEnd, waterStartTime[i]);
+    ans = min(ans, x);
+}
+
+// Now we calc for water
+minEnd = 1e9;
+for (int i = 0; i < waterStartTime.size(); i++) {
+    minEnd = min(minEnd, waterStartTime[i] + waterDuration[i]);
+}
+// Ans = min of water + land
+for (int i = 0; i < landStartTime.size(); i++) {
+    int x = landDuration[i] + max(minEnd, landStartTime[i]);
+    ans = min(ans, x);
+}
+
+return ans;
 
 4.
 NOT SOLVED
